@@ -1,8 +1,8 @@
 import { StarIcon } from "./icons";
 
-type Props = { remaining: number; total: number };
+type Props = { remaining: number; total: number; label?: string };
 
-export function DailyPlays({ remaining, total }: Props) {
+export function DailyPlays({ remaining, total, label }: Props) {
   return (
     <div className="flex items-center gap-2">
       <div
@@ -18,7 +18,7 @@ export function DailyPlays({ remaining, total }: Props) {
         ))}
       </div>
       <p className="text-base font-bold text-body">
-        Bugün {remaining} hakkın var
+        {label ?? `Bugün ${remaining} hakkın var`}
       </p>
     </div>
   );
