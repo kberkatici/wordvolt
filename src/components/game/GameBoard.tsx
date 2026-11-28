@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { GAME_CONFIG } from "@/config/game";
 import type { Question } from "@/types/question";
 import { buildOptions, pickQuestion } from "@/lib/game";
 import { CheckIcon, CloseIcon } from "../icons";
@@ -8,27 +9,44 @@ import { OptionButton } from "./OptionButton";
 
 type Round = { question: Question; options: string[] };
 
+type Props = {
+  onAnswer: (correct: boolean) => void;
+  onFeedbackDone: () => void;
+};
+
 function newRound(excludeId?: string): Round {
   const question = pickQuestion(excludeId);
   return { question, options: buildOptions(question) };
 }
 
-export function GameBoard() {
+export function GameBoard({ onAnswer, onFeedbackDone }: Props) {
   const [round, setRound] = useState<Round | null>(null);
   const [picked, setPicked] = useState<string | null>(null);
+
+  // Üst bileşen her yeniden çizildiğinde zamanlayıcının sıfırlanmaması için
+  // en güncel fonksiyonu bir "ref" içinde tutuyoruz.
+  const doneRef = useRef(onFeedbackDone);
+  useEffect(() => {
+    doneRef.current = onFeedbackDone;
+  });
 
   useEffect(() => {
     setRound(newRound());
   }, []);
 
   useEffect(() => {
-    if (picked === null) return;
+    if (picked === null || !round) return;
+    const delay =
+      picked === round.question.word
+        ? GAME_CONFIG.round.feedbackCorrectMs
+        : GAME_CONFIG.round.feedbackWrongMs;
     const id = setTimeout(() => {
+      doneRef.current();
       setRound((prev) => newRound(prev?.question.id));
       setPicked(null);
-    }, 1200);
+    }, delay);
     return () => clearTimeout(id);
-  }, [picked]);
+  }, [picked, round]);
 
   if (!round) return <div className="min-h-[520px]" aria-busy="true" />;
 
@@ -41,6 +59,12 @@ export function GameBoard() {
     if (option === question.word) return "correct";
     if (option === picked) return "wrong";
     return "idle";
+  }
+
+  function handlePick(option: string) {
+    if (answered) return;
+    setPicked(option);
+    onAnswer(option === question.word);
   }
 
   return (
@@ -82,7 +106,7 @@ export function GameBoard() {
             word={option}
             state={stateOf(option)}
             disabled={answered}
-            onClick={() => setPicked(option)}
+            onClick={() => handlePick(option)}
           />
         ))}
       </div>

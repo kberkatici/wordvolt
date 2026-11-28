@@ -1,8 +1,10 @@
 export const GAME_CONFIG = {
-  round: {
+    round: {
     durationSeconds: 90,
     lives: 3,
     warmupQuestions: 5,
+    feedbackCorrectMs: 1000,
+    feedbackWrongMs: 2000,
   },
   difficulty: {
     levelUpAfterCorrect: 3,
