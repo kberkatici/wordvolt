@@ -1,0 +1,22 @@
+[
+{"id":"a1-animals-0001","type":"choice","word":"cat","tr":"kedi","level":"A1","skill":"vocabulary","topic":"animals","media":{"emoji":"🐱","image":null,"audio":null},"distractors":["dog","bird","fish"],"source":"draft"},
+{"id":"a1-animals-0002","type":"choice","word":"dog","tr":"köpek","level":"A1","skill":"vocabulary","topic":"animals","media":{"emoji":"🐶","image":null,"audio":null},"distractors":["cat","horse","cow"],"source":"draft"},
+{"id":"a1-animals-0003","type":"choice","word":"bird","tr":"kuş","level":"A1","skill":"vocabulary","topic":"animals","media":{"emoji":"🐦","image":null,"audio":null},"distractors":["dog","fish","cow"],"source":"draft"},
+{"id":"a1-animals-0004","type":"choice","word":"fish","tr":"balık","level":"A1","skill":"vocabulary","topic":"animals","media":{"emoji":"🐟","image":null,"audio":null},"distractors":["cat","bird","frog"],"source":"draft"},
+{"id":"a1-food-0001","type":"choice","word":"apple","tr":"elma","level":"A1","skill":"vocabulary","topic":"food","media":{"emoji":"🍎","image":null,"audio":null},"distractors":["banana","orange","grape"],"source":"draft"},
+{"id":"a1-food-0002","type":"choice","word":"banana","tr":"muz","level":"A1","skill":"vocabulary","topic":"food","media":{"emoji":"🍌","image":null,"audio":null},"distractors":["apple","lemon","grape"],"source":"draft"},
+{"id":"a1-food-0003","type":"choice","word":"water","tr":"su","level":"A1","skill":"vocabulary","topic":"food","media":{"emoji":"💧","image":null,"audio":null},"distractors":["milk","juice","tea"],"source":"draft"},
+{"id":"a1-nature-0001","type":"choice","word":"sun","tr":"güneş","level":"A1","skill":"vocabulary","topic":"nature","media":{"emoji":"☀️","image":null,"audio":null},"distractors":["moon","star","cloud"],"source":"draft"},
+{"id":"a1-objects-0001","type":"choice","word":"book","tr":"kitap","level":"A1","skill":"vocabulary","topic":"objects","media":{"emoji":"📖","image":null,"audio":null},"distractors":["bag","pen","desk"],"source":"draft"},
+{"id":"a1-home-0001","type":"choice","word":"house","tr":"ev","level":"A1","skill":"vocabulary","topic":"home","media":{"emoji":"🏠","image":null,"audio":null},"distractors":["car","tree","school"],"source":"draft"},
+{"id":"a2-transport-0001","type":"choice","word":"bicycle","tr":"bisiklet","level":"A2","skill":"vocabulary","topic":"transport","media":{"emoji":"🚲","image":null,"audio":null},"distractors":["bus","train","plane"],"source":"draft"},
+{"id":"a2-home-0001","type":"choice","word":"kitchen","tr":"mutfak","level":"A2","skill":"vocabulary","topic":"home","media":{"emoji":null,"image":null,"audio":null},"distractors":["bedroom","bathroom","garden"],"source":"draft"},
+{"id":"a2-weather-0001","type":"choice","word":"umbrella","tr":"şemsiye","level":"A2","skill":"vocabulary","topic":"weather","media":{"emoji":"☂️","image":null,"audio":null},"distractors":["coat","boots","scarf"],"source":"draft"},
+{"id":"a2-places-0001","type":"choice","word":"hospital","tr":"hastane","level":"A2","skill":"vocabulary","topic":"places","media":{"emoji":"🏥","image":null,"audio":null},"distractors":["school","library","bank"],"source":"draft"},
+{"id":"a2-travel-0001","type":"choice","word":"ticket","tr":"bilet","level":"A2","skill":"vocabulary","topic":"travel","media":{"emoji":"🎫","image":null,"audio":null},"distractors":["map","passport","suitcase"],"source":"draft"},
+{"id":"a2-adjectives-0001","type":"choice","word":"delicious","tr":"lezzetli","level":"A2","skill":"vocabulary","topic":"adjectives","media":{"emoji":null,"image":null,"audio":null},"distractors":["boring","dangerous","cheap"],"source":"draft"},
+{"id":"b1-verbs-0001","type":"choice","word":"borrow","tr":"ödünç almak","level":"B1","skill":"vocabulary","topic":"verbs","media":{"emoji":null,"image":null,"audio":null},"distractors":["lend","steal","return"],"source":"draft"},
+{"id":"b1-abstract-0001","type":"choice","word":"knowledge","tr":"bilgi","level":"B1","skill":"vocabulary","topic":"abstract","media":{"emoji":null,"image":null,"audio":null},"distractors":["advice","habit","memory"],"source":"draft"},
+{"id":"b1-nature-0001","type":"choice","word":"environment","tr":"çevre","level":"B1","skill":"vocabulary","topic":"nature","media":{"emoji":"🌍","image":null,"audio":null},"distractors":["economy","government","society"],"source":"draft"},
+{"id":"b1-verbs-0002","type":"choice","word":"achieve","tr":"başarmak","level":"B1","skill":"vocabulary","topic":"verbs","media":{"emoji":null,"image":null,"audio":null},"distractors":["avoid","wonder","improve"],"source":"draft"}
+]
