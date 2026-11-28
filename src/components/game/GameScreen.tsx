@@ -1,28 +1,63 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GAME_CONFIG } from "@/config/game";
 import { DailyPlays } from "@/components/DailyPlays";
 import { SpeakerIcon } from "@/components/icons";
 import { GameBoard } from "./GameBoard";
 import { Lives } from "./Lives";
 
+type EndReason = "time" | "lives" | null;
+
+function formatTime(totalSeconds: number) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
 export function GameScreen() {
-  const totalLives = GAME_CONFIG.round.lives;
+  const {
+    lives: totalLives,
+    durationSeconds,
+    lowTimeSeconds,
+  } = GAME_CONFIG.round;
+
   const [lives, setLives] = useState<number>(totalLives);
-  const [ended, setEnded] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number>(durationSeconds);
+  const [endAt, setEndAt] = useState<number | null>(null);
+  const [endReason, setEndReason] = useState<EndReason>(null);
+  const ended = endReason !== null;
+  const lowTime = timeLeft <= lowTimeSeconds;
+
+  // Sayacı sayfa açılınca başlat
+  useEffect(() => {
+    setEndAt(Date.now() + durationSeconds * 1000);
+  }, [durationSeconds]);
+
+  // Bitiş saatine göre kalan süreyi hesapla
+  useEffect(() => {
+    if (endAt === null || ended) return;
+    const id = setInterval(() => {
+      const remaining = Math.max(0, Math.ceil((endAt - Date.now()) / 1000));
+      setTimeLeft(remaining);
+      if (remaining === 0) setEndReason("time");
+    }, 250);
+    return () => clearInterval(id);
+  }, [endAt, ended]);
 
   function handleAnswer(correct: boolean) {
     if (!correct) setLives((l) => Math.max(0, l - 1));
   }
 
   function handleFeedbackDone() {
-    if (lives <= 0) setEnded(true);
+    if (lives <= 0) setEndReason("lives");
   }
 
   function restart() {
     setLives(totalLives);
-    setEnded(false);
+    setTimeLeft(durationSeconds);
+    setEndAt(Date.now() + durationSeconds * 1000);
+    setEndReason(null);
   }
 
   return (
@@ -40,13 +75,24 @@ export function GameScreen() {
           role="progressbar"
           aria-label="Kalan süre"
           aria-valuemin={0}
-          aria-valuemax={90}
-          aria-valuenow={56}
+          aria-valuemax={durationSeconds}
+          aria-valuenow={timeLeft}
           className="h-3.5 flex-1 overflow-hidden rounded-full bg-track"
         >
-          <div className="h-full rounded-full bg-brand" style={{ width: "62%" }} />
+          <div
+            className={`h-full rounded-full transition-[width] duration-1000 ease-linear ${
+              lowTime ? "bg-wrong" : "bg-brand"
+            }`}
+            style={{ width: `${(timeLeft / durationSeconds) * 100}%` }}
+          />
         </div>
-        <p className="text-base font-extrabold">0:56</p>
+        <p
+          className={`min-w-[44px] text-right text-base font-extrabold tabular-nums ${
+            lowTime ? "text-wrong" : "text-ink"
+          }`}
+        >
+          {formatTime(timeLeft)}
+        </p>
       </div>
 
       <div className="flex justify-center">
@@ -57,9 +103,11 @@ export function GameScreen() {
 
       {ended ? (
         <section className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
-          <p className="text-3xl font-black">Tur bitti!</p>
+          <p className="text-3xl font-black">
+            {endReason === "time" ? "Süre doldu!" : "Canların bitti!"}
+          </p>
           <p className="text-base font-semibold text-body">
-            Canların bitti. (Geçici ekran: asıl tur sonu ekranı Gün 21&apos;de gelecek.)
+            Geçici ekran: asıl tur sonu ekranı Gün 21&apos;de gelecek.
           </p>
           <button
             type="button"
